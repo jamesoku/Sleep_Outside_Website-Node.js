@@ -2,9 +2,9 @@ import ProductData from "./productData.js";
 import ProductDetails from './productDetails.js';
 import { getParams } from "./utils.js";
 
-console.log("hello");
+// console.log("hello");
 const productId = getParams("product");
-const dataSource = new ProductData('tents');
+const dataSource = new ProductData(category);
 
 const product = new ProductDetails(productId, dataSource);
 product.init();

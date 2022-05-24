@@ -9,7 +9,7 @@ export default class ProductList{
     }
 
     async init(){
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         const filteredList = [];
             list.map(tent => {
             if (tent.Id == "880RR" || tent.Id == "985RF" || tent.Id == "985PR" || tent.Id == "344YJ") {
