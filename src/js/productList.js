@@ -1,4 +1,5 @@
 import { renderListWithTemplate } from "./utils.js";
+// import {category} from "./product-listing";
 
 export default class ProductList{
 
@@ -9,22 +10,22 @@ export default class ProductList{
     }
 
     async init(){
-        const list = await this.dataSource.getData();
-        const filteredList = [];
-            list.map(tent => {
-            if (tent.Id == "880RR" || tent.Id == "985RF" || tent.Id == "985PR" || tent.Id == "344YJ") {
-                filteredList.push(tent);
-            }
-        })
-        // console.log(list);
-        this.renderList(filteredList);
+        const list = await this.dataSource.getData(this.category);
+        // const filteredList = [];
+        //     list.map(this.tent => {
+        //     if (tent.Id == "880RR" || tent.Id == "985RF" || tent.Id == "985PR" || tent.Id == "344YJ") {
+        //         filteredList.push(tent);
+        //     }
+        // })
+        this.renderList(list);
+        document.querySelector(".title").innerHTML = this.category;
 
     }
 
     prepareTemplate(template, product) {
-        console.log(template);
+        console.log(product);
         template.querySelector('a').href += product.Id;
-        template.querySelector('img').src = product.Image;
+        template.querySelector('img').src = product.Images.PrimaryMedium;
         template.querySelector('img').alt += product.Name;
         template.querySelector('.card__brand').textContent = product.Brand.Name;
         template.querySelector('.card__name').textContent = product.NameWithoutBrand;
