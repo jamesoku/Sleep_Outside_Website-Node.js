@@ -10,5 +10,5 @@ const listElement = document.querySelector('.product-list');
 
 // what does new do //
 
-const productList = new ProductList('tents', dataSource, listElement);
-productList.init();
+// const productList = new ProductList('tents', dataSource, listElement);
+// productList.init();

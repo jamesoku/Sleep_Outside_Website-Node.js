@@ -1,3 +1,5 @@
+const baseURL = 'http://157.201.228.93:2992/'
+
 function convertToJson(res) {
     if (res.ok) {
       return res.json();
@@ -8,13 +10,13 @@ function convertToJson(res) {
 
 export default class ProductData {
     // pass in category name: ex. tents
-    constructor(category) {
-        this.category = category;
-        this.path = `../json/${this.category}.json`;
-    }
-    getData() {
-        return fetch(this.path)
-            .then(convertToJson).then((data) => data);
+    constructor() {
+    //     this.category = category;
+    //     this.path = `../json/${this.category}.json`;
+      }
+    getData(category) {
+        return fetch(baseURL + `products/search/${category}`)
+                .then(convertToJson).then((data) => data.Result);
     }
     async findProductById(id) {
         const products = await this.getData();
