@@ -25,6 +25,7 @@ export default class ProductDetails {
         setLocalStorage('so-cart', cartList);
       }
       renderProductDetails() {
+        console.log(this.product.SuggestedRetailPrice)
         return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
         <h2 class="divider">${this.product.NameWithoutBrand}</h2>
         <img
@@ -32,6 +33,7 @@ export default class ProductDetails {
           src="${this.product.Image}"
           alt="${this.product.NameWithoutBrand}"
         />
+        <p class="product__initialPrice">$${this.product.SuggestedRetailPrice}</p>
         <p class="product-card__price">$${this.product.FinalPrice}</p>
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
         <p class="product__description">
