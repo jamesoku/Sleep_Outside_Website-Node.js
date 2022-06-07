@@ -1,0 +1,1 @@
+import o from"./productData.js";import r from"./productList.js";import{loadHeaderFooter as c,getParams as e}from"./utils.js";c();const t=e("category");console.log(t);const s=new o,a=document.querySelector(".product-list"),i=new r(t,s,a);i.init();
