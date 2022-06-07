@@ -8,12 +8,15 @@
     <!-- HTML template to build a product card -->
     <template id="product-card-template">
       <li class="product-card">
-        <a href="/product_pages/product-details.html?product=">
-          <img src="" alt="Image of " />
-          <h3 class="card__brand"></h3>
-          <h2 class="card__name"></h2>
-          <p class="product-card__price">$</p></a
-        >
+        <a href="product_pages/product-details.html?product=">
+        <img
+          src=""
+          alt="Image of "
+        />
+        <h3 class="card__brand"></h3>
+        <h2 class="card__name"></h2>
+        <p style="text-decoration: line-through;" class="product__initialPrice">Initial Price: $</p>
+        <p class="product-card__price">Final Price: $</p></a>
       </li>
     </template>
     <script src="../js/product-listing.js" type="module"></script>
