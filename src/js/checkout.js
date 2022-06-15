@@ -7,8 +7,8 @@ const myCheckout = new CheckoutProcess("so-cart", ".checkout-summary");
 myCheckout.init();
 
 document
-  .querySelector("#zip")
-  .addEventListener("blur", myCheckout.calculateOrdertotal.bind(myCheckout));
+  .querySelector("#zip-code")
+  .addEventListener("blur", myCheckout.calculateOrderTotal.bind(myCheckout));
 
 //listening or click on the button
 document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {

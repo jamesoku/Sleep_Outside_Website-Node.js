@@ -58,6 +58,7 @@ export default class CheckoutProcess {
   }
 
   calculateOrderTotal() {
+    console.log("here");
     this.shipping = 10 + (this.list.length - 1) * 2;
     this.tax = (this.itemTotal * 0.06).toFixed(2);
     this.orderTotal = (
@@ -65,6 +66,7 @@ export default class CheckoutProcess {
       parseFloat(this.shipping) +
       parseFloat(this.tax)
     ).toFixed(2);
+
     this.displayOrderTotals();
   }
 
