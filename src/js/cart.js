@@ -1,11 +1,14 @@
 import { loadHeaderFooter, setLocalStorage } from "./utils.js";
-//import CartList from './cartList.js';
+// import CartList from "./cartList.js";
 
 loadHeaderFooter();
 
-//const cart = new CartList('so-cart', document.querySelector('.product-list'));
-//cart.init();
+// const cart = new CartList("so-cart", document.querySelector(".product-list"));
+// cart.init();
 
+// if (cart.total > 0) {
+//   document.querySelector(".list-footer").classList.remove("hide");
+// }
 function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
@@ -31,7 +34,7 @@ function getCartContents() {
     total = total.toFixed(2);
     document.querySelector(
       ".cart-footer-hide"
-    ).innerHTML = `<p class="cart-total">Total: ${total} </p>'`;
+    ).innerHTML = `<p class="cart-total">Total: ${total} </p>`;
   }
   // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
 }
@@ -40,7 +43,7 @@ function renderCartItem(item) {
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimarySmall}"
       alt="${item.Name}"
     />
   </a>

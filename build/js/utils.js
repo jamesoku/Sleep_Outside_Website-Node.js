@@ -1,1 +1,69 @@
-var s=(e,t,n)=>new Promise((r,o)=>{var c=a=>{try{l(n.next(a))}catch(d){o(d)}},i=a=>{try{l(n.throw(a))}catch(d){o(d)}},l=a=>a.done?r(a.value):Promise.resolve(a.value).then(c,i);l((n=n.apply(e,t)).next())});function u(e){if(e.ok)return e.text();throw new Error("Bad Response")}export function qs(e,t=document){return t.querySelector(e)}export function getLocalStorage(e){return JSON.parse(localStorage.getItem(e))}export function setLocalStorage(e,t){localStorage.setItem(e,JSON.stringify(t))}export function setClick(e,t){qs(e).addEventListener("touchend",n=>{n.preventDefault(),t()}),qs(e).addEventListener("click",t)}export function getParams(e){const t=window.location.search,n=new URLSearchParams(t);return n.get(e)}export function renderListWithTemplate(e,t,n,r){n.forEach(o=>{const c=e.content.cloneNode(!0),i=r(c,o);t.appendChild(i)})}export function renderWithTemplate(e,t,n,r){let o=e.content.cloneNode(!0);r&&(o=r(o,n)),t.appendChild(o)}export function loadTemplate(e){return s(this,null,function*(){const t=yield fetch(e).then(u),n=document.createElement("template");return n.innerHTML=t,n})}export function loadHeaderFooter(e){return s(this,null,function*(){const t=yield loadTemplate("../partials/header.html"),n=yield loadTemplate("../partials/footer.html"),r=document.getElementById("main-header"),o=document.getElementById("main-footer");renderWithTemplate(t,r),renderWithTemplate(n,o)})}
+function convertToText(res) {
+  if (res.ok) {
+    return res.text();
+  } else {
+    throw new Error('Bad Response');
+  }
+}
+
+// wrapper for querySelector...returns matching element
+export function qs(selector, parent = document) {
+  return parent.querySelector(selector);
+}
+// or a more concise version if you are into that sort of thing:
+// export const qs = (selector, parent = document) => parent.querySelector(selector);
+
+// retrieve data from localstorage
+export function getLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+// save data to local storage
+export function setLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+// set a listener for both touchend and click
+export function setClick(selector, callback) {
+  qs(selector).addEventListener("touchend", (event) => {
+    event.preventDefault();
+    callback();
+  });
+  qs(selector).addEventListener("click", callback);
+}
+
+export function getParams(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return urlParams.get(param);
+}
+
+export function renderListWithTemplate(template, parent, list, callback) {
+  list.forEach(item => {
+    const clone = template.content.cloneNode(true);
+    const templateWithData = callback(clone, item);
+    parent.appendChild(templateWithData);
+  })
+}
+
+export function renderWithTemplate(template, parent, data, callback) {
+  let clone = template.content.cloneNode(true);
+  if (callback) {
+    clone = callback(clone, data);
+  }
+  parent.appendChild(clone);
+}
+
+export async function loadTemplate(path) {
+  const html = await fetch(path).then(convertToText);
+  const template = document.createElement('template');
+  template.innerHTML = html;
+  return template;
+}
+
+export async function loadHeaderFooter(path) {
+  const header = await loadTemplate('../partials/header.html');
+  const footer = await loadTemplate('../partials/footer.html');
+  const headerElement = document.getElementById('main-header');
+  const footerElement = document.getElementById('main-footer');
+  renderWithTemplate(header, headerElement);
+  renderWithTemplate(footer, footerElement);
+}

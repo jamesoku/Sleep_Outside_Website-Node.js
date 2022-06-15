@@ -1,1 +1,44 @@
-var o=(s,t,e)=>new Promise((i,c)=>{var l=r=>{try{a(e.next(r))}catch(n){c(n)}},m=r=>{try{a(e.throw(r))}catch(n){c(n)}},a=r=>r.done?i(r.value):Promise.resolve(r.value).then(l,m);a((e=e.apply(s,t)).next())});import{renderListWithTemplate as d}from"./utils.js";export default class u{constructor(t,e,i){this.category=t,this.dataSource=e,this.listElement=i}init(){return o(this,null,function*(){const t=yield this.dataSource.getData(this.category);this.renderList(t),document.querySelector(".title").innerHTML=this.category})}prepareTemplate(t,e){return console.log(e),t.querySelector("a").href+=e.Id,t.querySelector("img").src=e.Images.PrimaryMedium,t.querySelector("img").alt+=e.Name,t.querySelector(".card__brand").textContent=e.Brand.Name,t.querySelector(".card__name").textContent=e.NameWithoutBrand,t.querySelector(".product-card__price").textContent+=e.FinalPrice,t}renderList(t){this.listElement.innerHTML="";const e=document.getElementById("product-card-template");d(e,this.listElement,t,this.prepareTemplate)}}
+import { renderListWithTemplate } from "./utils.js";
+// import {category} from "./product-listing";
+
+export default class ProductList{
+
+      constructor(category,dataSource, listElement) {
+        this.category = category;
+        this.dataSource = dataSource;
+        this.listElement = listElement;
+    }
+
+    async init(){
+        const list = await this.dataSource.getData(this.category);
+        // const filteredList = [];
+        //     list.map(this.tent => {
+        //     if (tent.Id == "880RR" || tent.Id == "985RF" || tent.Id == "985PR" || tent.Id == "344YJ") {
+        //         filteredList.push(tent);
+        //     }
+        // })
+        this.renderList(list);
+        document.querySelector(".title").innerHTML = this.category;
+
+    }
+
+    prepareTemplate(template, product) {
+        console.log(product);
+        template.querySelector('a').href += product.Id;
+        template.querySelector('img').src = product.Images.PrimaryMedium;
+        template.querySelector('img').alt += product.Name;
+        template.querySelector('.card__brand').textContent = product.Brand.Name;
+        template.querySelector('.card__name').textContent = product.NameWithoutBrand;
+        template.querySelector('.product__initialPrice').textContent += product.SuggestedRetailPrice;
+        template.querySelector('.product-card__price').textContent += product.FinalPrice;
+        return template;
+    }
+
+    renderList(list) {
+        this.listElement.innerHTML = '';
+        const template = document.getElementById('product-card-template');
+        renderListWithTemplate(template, this.listElement, list, this.prepareTemplate);
+    }
+};
+
+

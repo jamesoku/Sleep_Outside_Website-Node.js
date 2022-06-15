@@ -7,8 +7,9 @@ function convertToJson(res) {
     throw new Error("Bad Response");
   }
 }
+let products = [];
 
-export default class ProductData {
+export default class ExternalServices {
   // pass in category name: ex. tents
   constructor() {
     //     this.category = category;
@@ -23,5 +24,16 @@ export default class ProductData {
     return await fetch(baseURL + `product/${id}`)
       .then(convertToJson)
       .then((data) => data.Result);
+  }
+
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
 }

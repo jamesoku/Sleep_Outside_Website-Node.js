@@ -1,15 +1,72 @@
-import{loadHeaderFooter as n,setLocalStorage as i}from"./utils.js";n();function o(t){return JSON.parse(localStorage.getItem(t))}function l(){let t="";const e=o("so-cart"),r=e.map(a=>d(a));if(document.querySelector(".product-list").innerHTML=r.join(""),e){let a=0;for(let c=0;c<e.length;c++){const s=e[c];a+=s.FinalPrice}a=a.toFixed(2),document.querySelector(".cart-footer-hide").innerHTML=`<p class="cart-total">Total: ${a} </p>'`}}function d(t){const e=`<li class="cart-card divider">
+import { loadHeaderFooter, setLocalStorage } from "./utils.js";
+//import CartList from './cartList.js';
+
+loadHeaderFooter();
+
+//const cart = new CartList('so-cart', document.querySelector('.product-list'));
+//cart.init();
+
+function getLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function getCartContents() {
+  let markup = "";
+  const cartItems = getLocalStorage("so-cart");
+  const htmlItems = cartItems.map((item) => renderCartItem(item));
+  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+  if (cartItems) {
+    let total = 0;
+    // console.log(cartItems);
+    // for (let item in cartItems) {
+    //   console.log(item);
+    //   // total += item.FinalPrice;
+    // }
+    for (let item = 0; item < cartItems.length; item++) {
+      const product = cartItems[item];
+
+      total += product.FinalPrice;
+    }
+    total = total.toFixed(2);
+    document.querySelector(
+      ".cart-footer-hide"
+    ).innerHTML = `<p class="cart-total">Total: ${total} </p>'`;
+  }
+  // document.querySelector(".product-list").innerHTML = renderCartItem(cartItems);
+}
+
+function renderCartItem(item) {
+  const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${t.Image}"
-      alt="${t.Name}"
+      src="${item.Image}"
+      alt="${item.Name}"
     />
   </a>
   <a href="#">
-    <h2 class="card__name">${t.Name}</h2>
+    <h2 class="card__name">${item.Name}</h2>
   </a>
-  <p class="cart-card__color">${t.Colors[0].ColorName}</p>
+  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${t.FinalPrice}</p>
-  <p class="remove-icon" data-id = "${t.Id}">\u274C</p>
-</li>`;return e}l(),document.querySelectorAll(".remove-icon").forEach(t=>{t.addEventListener("click",function(){const e=o("so-cart");for(let r=0;r<e.length;r++){const a=e[r];this.dataset.id==a.Id&&e.splice(r)}i("so-cart",e),l()})});
+  <p class="cart-card__price">$${item.FinalPrice}</p>
+  <p class="remove-icon" data-id = "${item.Id}">❌</p>
+</li>`;
+  return newItem;
+}
+
+getCartContents();
+
+document.querySelectorAll(".remove-icon").forEach((item) => {
+  item.addEventListener("click", function () {
+    const cartItems = getLocalStorage("so-cart");
+    for (let cartItem = 0; cartItem < cartItems.length; cartItem++) {
+      const item = cartItems[cartItem];
+      if (this.dataset.id == item.Id) {
+        cartItems.splice(cartItem);
+      }
+    }
+    setLocalStorage("so-cart", cartItems);
+    getCartContents();
+  });
+});
