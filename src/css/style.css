@@ -13,6 +13,10 @@
   --small-font: 0.8em;
   --large-font: 1.2em;
 }
+#circle{
+  background-color: royalblue;
+  clip-path: circle();
+}
 * {
   box-sizing: border-box;
 }
