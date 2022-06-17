@@ -220,28 +220,40 @@ footer {
   padding: 1em;
 }
 
-/* .checkout-button {
-  padding: 0.5em 2em;
-  background-color: var(--secondary-color);
-  color: white;
-  margin: auto;
-  display: block;
-  border: 0;
-  width: 20%;
-  font-size: var(--large-font);
-} */
-
-#checkout-form {
-  width: 550px;
-  margin: auto;
-  max-width: 40rem;
+.search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
 }
 
-#checkout-form legend {
-  text-align: center;
+.search-container input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
 }
 
-#checkout-form input:required {
-  align-items: center;
-  width: 100%;
+.search-container {
+  float: right;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
+.search-button {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.search-button img {
+  width: 20px;
+  height: 18px;
+  object-fit: contain;
 }

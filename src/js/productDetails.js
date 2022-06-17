@@ -1,4 +1,7 @@
-import { setLocalStorage, getLocalStorage } from "./utils.js";
+import { setLocalStorage, getLocalStorage, loadHeaderFooter, displaysuperscript } from "./utils.js";
+
+loadHeaderFooter();
+
 
 export default class ProductDetails {
   // pass in category name: ex. tents
@@ -25,6 +28,7 @@ export default class ProductDetails {
 
     cartList.push(this.product);
     setLocalStorage("so-cart", cartList);
+    displaysuperscript()
   }
   renderProductDetails() {
     return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
