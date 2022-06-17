@@ -1,42 +1,47 @@
 import { renderListWithTemplate } from "./utils.js";
+// import {category} from "./product-listing";
 
-export default class ProductList{
+export default class ProductList {
+  constructor(category, dataSource, listElement) {
+    this.category = category;
+    this.dataSource = dataSource;
+    this.listElement = listElement;
+  }
 
-      constructor(category,dataSource, listElement) {
-        this.category = category;
-        this.dataSource = dataSource;
-        this.listElement = listElement;
-    }
+  async init() {
+    const list = await this.dataSource.getData(this.category);
+    // const filteredList = [];
+    //     list.map(this.tent => {
+    //     if (tent.Id == "880RR" || tent.Id == "985RF" || tent.Id == "985PR" || tent.Id == "344YJ") {
+    //         filteredList.push(tent);
+    //     }
+    // })
+    this.renderList(list);
+    document.querySelector(".title").innerHTML = this.category;
+  }
 
-    async init(){
-        const list = await this.dataSource.getData();
-        const filteredList = [];
-            list.map(tent => {
-            if (tent.Id == "880RR" || tent.Id == "985RF" || tent.Id == "985PR" || tent.Id == "344YJ") {
-                filteredList.push(tent);
-            }
-        })
-        // console.log(list);
-        this.renderList(filteredList);
+  prepareTemplate(template, product) {
+    template.querySelector("a").href += product.Id;
+    template.querySelector("img").src = product.Images.PrimaryMedium;
+    template.querySelector("img").alt += product.Name;
+    template.querySelector(".card__brand").textContent = product.Brand.Name;
+    template.querySelector(".card__name").textContent =
+      product.NameWithoutBrand;
+    template.querySelector(".product__initialPrice").textContent +=
+      product.SuggestedRetailPrice;
+    template.querySelector(".product-card__price").textContent +=
+      product.FinalPrice;
+    return template;
+  }
 
-    }
-
-    prepareTemplate(template, product) {
-        console.log(template);
-        template.querySelector('a').href += product.Id;
-        template.querySelector('img').src = product.Image;
-        template.querySelector('img').alt += product.Name;
-        template.querySelector('.card__brand').textContent = product.Brand.Name;
-        template.querySelector('.card__name').textContent = product.NameWithoutBrand;
-        template.querySelector('.product-card__price').textContent += product.FinalPrice;
-        return template;
-    }
-
-    renderList(list) {
-        this.listElement.innerHTML = '';
-        const template = document.getElementById('product-card-template');
-        renderListWithTemplate(template, this.listElement, list, this.prepareTemplate);
-    }
-};
-
-
+  renderList(list) {
+    this.listElement.innerHTML = "";
+    const template = document.getElementById("product-card-template");
+    renderListWithTemplate(
+      template,
+      this.listElement,
+      list,
+      this.prepareTemplate
+    );
+  }
+}

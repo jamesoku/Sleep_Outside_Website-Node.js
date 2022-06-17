@@ -22,7 +22,7 @@ export default class ProductDetails {
     if (!cartList) {
       cartList = [];
     }
-
+    
     cartList.push(this.product);
     setLocalStorage("so-cart", cartList);
   }
@@ -32,9 +32,9 @@ export default class ProductDetails {
         <h2 class="divider">${this.product.NameWithoutBrand}</h2>
         <img
           class="divider"
-          src="${this.product.Images.PrimaryLarge}"
-          alt="${this.product.NameWithoutBrand}">
-        <img/>
+          src="${this.product.Image}"
+          alt="${this.product.NameWithoutBrand}"
+        />
         <p class="product__initialPrice">$${this.product.SuggestedRetailPrice}</p>
         <p class="product-card__price">$${this.product.FinalPrice}</p>
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
