@@ -58,6 +58,14 @@ export async function loadTemplate(path) {
   template.innerHTML = html;
   return template;
 }
+export function displaysuperscript(){
+  var items = getLocalStorage("so-cart").length;
+  var superscript = document.getElementById("superscript");
+  superscript.innerHTML = items;
+
+
+
+}
 
 export async function loadHeaderFooter() {
   const header = await loadTemplate("../partials/header.html");
@@ -66,4 +74,6 @@ export async function loadHeaderFooter() {
   const footerElement = document.getElementById("main-footer");
   renderWithTemplate(header, headerElement);
   renderWithTemplate(footer, footerElement);
+  displaysuperscript();
+
 }
