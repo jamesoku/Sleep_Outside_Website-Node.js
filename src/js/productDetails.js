@@ -21,6 +21,9 @@ export default class ProductDetails {
       .addEventListener("click", this.addToCart.bind(this));
   }
   addToCart() {
+    const spin = document.getElementById("spin");
+    spin.classList.toggle("pulse");
+
     let cartList = getLocalStorage("so-cart");
     if (!cartList) {
       cartList = [];
@@ -29,6 +32,7 @@ export default class ProductDetails {
     cartList.push(this.product);
     setLocalStorage("so-cart", cartList);
     displaysuperscript()
+
   }
   renderProductDetails() {
     return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
