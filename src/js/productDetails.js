@@ -22,7 +22,13 @@ export default class ProductDetails {
   }
   addToCart() {
     const spin = document.getElementById("spin");
-    spin.classList.toggle("pulse");
+    // spin.classList.toggle("pulse");
+    spin.classList.add("pulse");
+    setTimeout(()=>{
+      spin.classList.remove("pulse");
+    }, 2000);
+
+    
 
     let cartList = getLocalStorage("so-cart");
     if (!cartList) {
