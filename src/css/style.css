@@ -231,17 +231,20 @@ footer {
   font-size: var(--large-font);
 } */
 
-#checkout-form {
+#checkout-form,
+#login-form {
   width: 550px;
   margin: auto;
   max-width: 40rem;
 }
 
-#checkout-form legend {
+#checkout-form legend,
+#login-form legend {
   text-align: center;
 }
 
-#checkout-form input:required {
+#checkout-form input:required,
+#login-form input:required {
   align-items: center;
   width: 100%;
 }
