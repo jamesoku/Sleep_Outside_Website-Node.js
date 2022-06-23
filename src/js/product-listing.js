@@ -17,4 +17,5 @@ const dataSource = new ExternalServices();
 const listElement = document.querySelector(".product-list");
 // then create an instance of our ProductList class and send it the correct information.
 const productList = new ProductList(category, dataSource, listElement);
+console.log(productList);
 productList.init();

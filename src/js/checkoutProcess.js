@@ -1,4 +1,9 @@
-import { getLocalStorage } from "./utils.js";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  alertMessage,
+  removeAllAlerts,
+} from "./utils.js";
 import ExternalServices from "./ExternalServices.js";
 
 const services = new ExternalServices();
@@ -14,7 +19,6 @@ function formDataToJSON(formElement) {
 }
 function packageItems(items) {
   const simplifiedItems = items.map((item) => {
-    console.log(item);
     return {
       id: item.Id,
       price: item.FinalPrice,
@@ -58,7 +62,6 @@ export default class CheckoutProcess {
   }
 
   calculateOrderTotal() {
-    console.log("here");
     this.shipping = 10 + (this.list.length - 1) * 2;
     this.tax = (this.itemTotal * 0.06).toFixed(2);
     this.orderTotal = (
@@ -82,7 +85,7 @@ export default class CheckoutProcess {
   }
 
   async checkout() {
-    const formElement = document.forms["checkout"];
+    const formElement = document.forms["checkout-form"];
 
     const json = formDataToJSON(formElement);
     // add totals, and item details
@@ -92,12 +95,26 @@ export default class CheckoutProcess {
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
-    console.log(json);
+    json.fname = formElement.fname.value;
+    json.lname = formElement.lname.value;
+    json.street = formElement.street.value;
+    json.city = formElement.city.value;
+    json.state = formElement.state.value;
+    json.zip = formElement.zip.value;
+    json.cardNumber = formElement.card.value;
+    json.expiration = formElement.expiration.value;
+    json.cvv = formElement.cvv.value;
 
     try {
       const res = await services.checkout(json);
       console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/checkout.html");
     } catch (err) {
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
       console.log(err);
     }
   }
