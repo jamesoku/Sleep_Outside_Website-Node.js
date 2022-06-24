@@ -58,13 +58,12 @@ export async function loadTemplate(path) {
   template.innerHTML = html;
   return template;
 }
-export function displaysuperscript(){
-  var items = getLocalStorage("so-cart").length;
-  var superscript = document.getElementById("superscript");
-  superscript.innerHTML = items;
-
-
-
+export function displaysuperscript() {
+  var items = getLocalStorage("so-cart");
+  if (items) {
+    var superscript = document.getElementById("superscript");
+    superscript.innerHTML = items.length;
+  }
 }
 
 export async function loadHeaderFooter() {
@@ -75,7 +74,6 @@ export async function loadHeaderFooter() {
   renderWithTemplate(header, headerElement);
   renderWithTemplate(footer, footerElement);
   displaysuperscript();
-
 }
 
 export function alertMessage(message, scroll = true, duration = 3000) {
