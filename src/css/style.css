@@ -295,6 +295,25 @@ footer {
   cursor: pointer;
 }
 
+
+#checkout-form,
+#login-form {
+  width: 550px;
+  margin: auto;
+  max-width: 40rem;
+}
+
+#checkout-form legend,
+#login-form legend {
+  text-align: center;
+}
+
+#checkout-form input:required,
+#login-form input:required {
+  align-items: center;
+  width: 100%;
+  }
+  
 .search-container input[type=text] {
   padding: 6px;
   margin-top: 8px;
