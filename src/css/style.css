@@ -13,6 +13,70 @@
   --small-font: 0.8em;
   --large-font: 1.2em;
 }
+
+#close{
+  position: absolute;
+  font-size: 45px;
+  transform: rotate(45deg);
+  right: 5%;
+  top: 10px;
+  cursor: pointer;
+}
+
+#pop-up.message{
+  border-radius: 5%;
+  background-color: gold;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  top: 50%;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s;
+  position: absolute;
+  
+}
+
+#pop-up{
+  
+  position: fixed;
+  top: 40%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  width: 600px;
+  padding: 50px;
+  box-shadow: 0 5px 30px(0,0,0,.30);
+  background: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.pulse{
+  animation: pulse 2s ease-in-out 1000ms;
+}
+
+@keyframes pulse{
+  0%{
+    opacity: 1;
+    transform: scale(1);
+
+  }
+  50%{
+    opacity: 0.5;
+    transform: scale(0.75);
+
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1.25);
+
+  }
+}
+#circle{
+  background-color: royalblue;
+  clip-path: circle();
+}
 * {
   box-sizing: border-box;
 }
@@ -220,16 +284,17 @@ footer {
   padding: 1em;
 }
 
-/* .checkout-button {
-  padding: 0.5em 2em;
-  background-color: var(--secondary-color);
-  color: white;
-  margin: auto;
-  display: block;
-  border: 0;
-  width: 20%;
-  font-size: var(--large-font);
-} */
+.search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
 
 #checkout-form,
 #login-form {
@@ -247,4 +312,31 @@ footer {
 #login-form input:required {
   align-items: center;
   width: 100%;
+  }
+  
+.search-container input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.search-container {
+  float: right;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
+.search-button {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.search-button img {
+  width: 20px;
+  height: 18px;
+  object-fit: contain;
 }

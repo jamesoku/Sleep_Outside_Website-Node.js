@@ -1,4 +1,7 @@
-import { setLocalStorage, getLocalStorage } from "./utils.js";
+import { setLocalStorage, getLocalStorage, loadHeaderFooter, displaysuperscript } from "./utils.js";
+
+loadHeaderFooter();
+
 
 export default class ProductDetails {
   // pass in category name: ex. tents
@@ -18,6 +21,15 @@ export default class ProductDetails {
       .addEventListener("click", this.addToCart.bind(this));
   }
   addToCart() {
+    const spin = document.getElementById("spin");
+    // spin.classList.toggle("pulse");
+    spin.classList.add("pulse");
+    setTimeout(()=>{
+      spin.classList.remove("pulse");
+    }, 2000);
+
+    
+
     let cartList = getLocalStorage("so-cart");
     if (!cartList) {
       cartList = [];
@@ -25,6 +37,8 @@ export default class ProductDetails {
 
     cartList.push(this.product);
     setLocalStorage("so-cart", cartList);
+    displaysuperscript()
+
   }
   renderProductDetails() {
     return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
